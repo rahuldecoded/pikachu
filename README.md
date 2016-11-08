@@ -1,0 +1,2 @@
+# pikachu
+IRC BOT
