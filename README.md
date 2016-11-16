@@ -1,2 +1,2 @@
 # pikachu
-IRC BOT
+IRC BOT - using python2.7
