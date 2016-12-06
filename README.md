@@ -1,20 +1,29 @@
 # pikachu
 IRC BOT - using python2.7
+This bot is very useful for organizing the Online Sessions over IRC in a great way.
+
+### Features
+1. Maintaing a proper queue of doubts during session.
+2. Fetch recent tweets from the given twitter handel.
+
+You can send the following commands to the bot in a PM:
+
+|Command|Description|Channel|Who|
+|---|---|---|---|
+|`!`|Queue yourself to ask a question during a session|Channel|Any user|
+|`:clearqueue`|Clear the question queue|Channel|Admin|
+|`:show`|Show the status of the question queue|PM/Channel|Admin|
+|`:next`|Ping the next person in the queue to ask their question|Channel|Admin|
+|`:add [nick]`|Add `nick` to masters list|PM/Channel|Admin|
+|`:remove [nick]`|Remove `nick` from masters list|PM/Channel|Admin|
+|`:tweet`|Show the recent tweet in the twitter handle|Channel|Any user|
 
 ### Commands for pikachu:
 
-1. pikachu: yourmessage
+pikachu: yourmessage
   * yourmessage can be
     1. hi/hey/hello
     2. time 
     3. date
     4. goodbye
     5. master
-2. !: for entering in queue
-
-### If the message sender is admin?
-3. :show For showing number of user in queue.
-4. :next For getting to the next user in the queue.
-5. :clearqueue For clearing the queue.
-6. :add [username] For adding someone as a admin
-7. :remove [username] For removing someone from admin privilege.
