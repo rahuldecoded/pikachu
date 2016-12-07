@@ -2,6 +2,8 @@ import re
 import socket
 from replies import reply, find_in_Replies
 from Queue import Queue
+import urllib2
+from bs4 import BeautifulSoup
 
 user_queue = Queue()
 # For sending messages to a specified channel
@@ -20,13 +22,28 @@ def ping():
     global irc
     irc.send ("PONG :pingis\n")
 
+
+def tweet(chan):
+    theurl = "https://twitter.com/pyconpune"
+    thepage = urllib2.urlopen(theurl)
+    soup = BeautifulSoup(thepage, "html.parser")
+    sendmsg(chan, soup.title.text)
+    tweets = soup.findAll('div', {"class": "content"})[0]
+    status = tweets.find('p', {'class': 'TweetTextSize TweetTextSize--16px js-tweet-text tweet-text'}).text
+    # date = tweets.find('a', {'class': 'tweet-timestamp js-permalink js-nav js-tooltip'}).text
+    # last_tweet = status + " " + date
+    print status
+    sendmsg(chan, status.encode('ascii', 'ignore'))
+
+
+
 # This is a main routine
 def main():
     global irc, user_queue
     botnick = "pikachu"
     bufsize = 2048
     admin = ["rahuldecoded"]
-    channel = "#pypune"
+    channel = "#uit-foss"
     port = 6667
     server = "irc.freenode.net"
     master = "rahuldecoded"
@@ -93,15 +110,18 @@ def main():
                 except ValueError:
                     return ircmsg.split(" ")[-1] + "is not in admin list."
 
+
+
+
         # User Commands
         if ircmsg.find("PING :") != -1:
             ping()
-        if ircmsg.find(":@hi") != -1:
-            sendmsg(channel, "hi")
         if ircmsg.split(" ")[-1] == ":!":
             user_name = ircmsg.strip(":").split("!")
             sendmsg(channel, str(user_name[0]) + " , you have added in queue. Wait for your turn.\n")
             user_queue.enqueue(user_name[0])
+        if ircmsg.split(" ")[-1] == "::tweet":
+            tweet(channel)
 
 
 main()

@@ -17,8 +17,8 @@ Replies ['hello'    ] = send_hi()
 Replies ['hi'       ] = send_hi()
 Replies ['hey'      ] = send_hi()
 Replies ['master'   ] = master + " is my master"
-Replies ['pikachuinuit'] = "What do you want?"
-
+Replies ['daddy'] = master
+Replies [botnick] = "What do you want?"
 def find_in_Replies(word):
     global Replies
     if word in Replies:
