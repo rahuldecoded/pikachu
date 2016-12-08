@@ -2,10 +2,13 @@ import re
 import socket
 from replies import reply, find_in_Replies
 from Queue import Queue
+from algebra import algebra
+from weather import weather
 import urllib2
 from bs4 import BeautifulSoup
 
 user_queue = Queue()
+alg = algebra()
 # For sending messages to a specified channel
 def sendmsg(chan, msg):
     global irc
@@ -23,17 +26,6 @@ def ping():
     irc.send ("PONG :pingis\n")
 
 
-def tweet(chan):
-    theurl = "https://twitter.com/pyconpune"
-    thepage = urllib2.urlopen(theurl)
-    soup = BeautifulSoup(thepage, "html.parser")
-    sendmsg(chan, soup.title.text)
-    tweets = soup.findAll('div', {"class": "content"})[0]
-    status = tweets.find('p', {'class': 'TweetTextSize TweetTextSize--16px js-tweet-text tweet-text'}).text
-    # date = tweets.find('a', {'class': 'tweet-timestamp js-permalink js-nav js-tooltip'}).text
-    # last_tweet = status + " " + date
-    print status
-    sendmsg(chan, status.encode('ascii', 'ignore'))
 
 
 
@@ -120,9 +112,11 @@ def main():
             user_name = ircmsg.strip(":").split("!")
             sendmsg(channel, str(user_name[0]) + " , you have added in queue. Wait for your turn.\n")
             user_queue.enqueue(user_name[0])
-        if ircmsg.split(" ")[-1] == "::tweet":
-            tweet(channel)
 
+        # Command for temperature
+        # Syntax: ":temp kolkata"
+        if ircmsg.split(" ")[-2] == "::temp":
+            sendmsg(channel, weather(ircmsg.split(" ")[-1]))
 
 main()
 exit(0)
