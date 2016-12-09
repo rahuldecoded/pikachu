@@ -27,3 +27,10 @@ pikachu: yourmessage
     3. date
     4. goodbye
     5. master
+
+
+### Install dependencies with:
+`$ pip install -r requirements.txt`
+
+### Now run the bot with:
+`$ python config.py`
