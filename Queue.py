@@ -31,6 +31,6 @@ class Queue(list):
             return str(self[0]) + " ask your question and " + str(self[1]) + " ready with your question."
 
         elif len(self) > 0:
-            return str(self[0]) + "ask your question."
+            return str(self[0]) + " ask your question."
         else:
             return "No one is in queue."
