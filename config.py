@@ -5,6 +5,7 @@ from Queue import Queue
 import traceback
 from weather import weather
 from bs4 import BeautifulSoup
+from joke import joke
 
 user_queue = Queue()
 '''
@@ -36,7 +37,7 @@ def main():
     botnick = "pikachu_"
     bufsize = 2048
     admin = ["rahuldecoded"]
-    channel = "#uit-foss"
+    channel = "#dgplug"
     port = 6667
     server = "irc.freenode.net"
     master = "rahuldecoded"
@@ -118,6 +119,12 @@ def main():
 
             if ircmsg.split(" ")[-2] == "::temp":
                 sendmsg(channel, weather(ircmsg.split(" ")[-1]))
+
+            # Command for joke
+            # Syntax: ":joke"
+
+            if ircmsg.split(" ")[-2] == "::joke":
+                sendmsg(channel, joke())
 
         except Exception as e:
             tb = traceback.format_exc()
