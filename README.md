@@ -1,5 +1,5 @@
 # pikachu
-IRC BOT - using python2.7
+IRC BOT - using python3
 This bot is very useful for organizing the Online Sessions over IRC in a great way.
 
 ### Features
