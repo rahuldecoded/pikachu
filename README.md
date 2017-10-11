@@ -1,4 +1,6 @@
 # pikachu
+
+[![Join the chat at https://gitter.im/pikachu_/Lobby](https://badges.gitter.im/pikachu_/Lobby.svg)](https://gitter.im/pikachu_/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 IRC BOT - using python3
 This bot is very useful for organizing the Online Sessions over IRC in a great way.
 
