@@ -78,40 +78,45 @@ def main():
 
     # Admin Commands
         # For showing the length of the queue.
+        tokens = ircmsg.split(" ")
         try:
-            if ircmsg.split(" ")[-1] == "::show":
+            if tokens[3] == "::show":
                 if ircmsg.strip(":").split("!")[0] in admin:
                     sendmsg(channel, str(user_queue.in_queue()) + " \n")
 
             # For getting to the next user in the queue.
-            if ircmsg.split(" ")[-1] == "::next":
+            if tokens[3] == "::next":
                 if ircmsg.strip(":").split("!")[0] in admin:
                     sendmsg(channel, str(user_queue.next_nick()) + " \n")
                     user_queue.pop_next()
 
             # For clearing the queue.
-            if ircmsg.split(" ")[-1] == "::clearqueue":
+            if tokens[3] == "::clearqueue":
                 if ircmsg.strip(":").split("!")[0] in admin:
                     user_queue.clear()
                     sendmsg(channel, "Queue cleared")
 
             # For adding someone as a admin
-            if ircmsg.split(" ")[-2] == "::add":
+            if tokens[3] == "::add" and len(tokens) > 4:
                 if ircmsg.strip(":").split("!")[0] in admin:
-                    admin.append(ircmsg.split(" ")[-1])
+                    admin.append(tokens[1])
+            elif tokens[3] == "::add" and len(tokens) == 4:
+                sendmsg(channel, "Usage: :add [nick]")
 
             # For removing someone from admin privilege.
-            if ircmsg.split(" ")[-2] == "::remove":
+            if tokens[3] == "::remove" and len(tokens) > 4:
                 if ircmsg.strip(":").split("!")[0] in admin:
                     try:
-                        admin.remove(ircmsg.split(" ")[-1])
+                        admin.remove(tokens[1])
                     except ValueError:
-                        return ircmsg.split(" ")[-1] + "is not in admin list."
+                        return tokens[1] + "is not in admin list."
+            elif tokens[3] == "::remove" and len(tokens) == 4:
+                sendmsg(channel, "Usage: :remove [nick]")
 
             # User Commands
             if ircmsg.find("PING :") != -1:
                 ping()
-            if ircmsg.split(" ")[-1] == ":!":
+            if tokens[3] == ":!":
                 user_name = ircmsg.strip(":").split("!")
                 sendmsg(channel, str(user_name[0]) + " , you have added in queue. Wait for your turn.\n")
                 user_queue.enqueue(user_name[0])
@@ -119,24 +124,31 @@ def main():
             # Command for temperature
             # Syntax: ":temp kolkata"
 
-            if ircmsg.split(" ")[-2] == "::temp":
-                sendmsg(channel, weather(ircmsg.split(" ")[-1]))
+            if tokens[3] == "::temp" and len(tokens) > 4:
+                sendmsg(channel, weather(tokens[1]))
+            elif tokens[3] == "::temp" and len(tokens) == 4:
+                sendmsg(channel, "Usage: :temp [city name]")
 
             # Command for joke
             # Syntax: ":joke"
 
-            if ircmsg.split(" ")[-2] == "::joke":
+            if tokens[3] == "::joke":
                 sendmsg(channel, joke())
 
             # Command for google
             # Syntax: ":google"
 
-            if ircmsg.split(" ")[-2] == "::google ":
-                sendmsg(channel, get_urls(ircmsg.split(" ")[-1]))
-
-            if ircmsg.split(" ")[-2] == "::wiki":
-                sendmsg(channel, wiki.summary(ircmsg.split(" ")[-1]))
-
+            if tokens[3] == "::google" and len(tokens) > 4:
+                sendmsg(channel, get_urls(' '.join(tokens[4:])))
+            elif tokens[3] == "::google" and len(tokens) == 4:
+                sendmsg(channel, "Usage: :google [query]")
+            
+            # Command for wiki
+            # Syntax: ":wiki"
+            if tokens[3] == "::wiki" and len(tokens) > 4:
+                sendmsg(channel, wiki.summary(' '.join(tokens[4:])))
+            elif tokens[3] == "::wiki" and len(tokens) == 4:
+                sendmsg(channel, "Usage: :wiki [query]")
 
         except Exception as e:
             tb = traceback.format_exc()
