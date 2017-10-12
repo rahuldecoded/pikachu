@@ -79,6 +79,11 @@ def main():
     # Admin Commands
         # For showing the length of the queue.
         tokens = ircmsg.split(" ")
+        if tokens[0] == "PING":
+            ping()
+            continue
+        if tokens[1] != "PRIVMSG":
+            continue
         try:
             if tokens[3] == "::show":
                 if ircmsg.strip(":").split("!")[0] in admin:
@@ -114,8 +119,6 @@ def main():
                 sendmsg(channel, "Usage: :remove [nick]")
 
             # User Commands
-            if ircmsg.find("PING :") != -1:
-                ping()
             if tokens[3] == ":!":
                 user_name = ircmsg.strip(":").split("!")
                 sendmsg(channel, str(user_name[0]) + " , you have added in queue. Wait for your turn.\n")

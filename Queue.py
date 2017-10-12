@@ -28,9 +28,9 @@ class Queue(list):
 
     def next_nick(self):
         if len(self) > 1:
-            return str(self[0]) + " ask your question and " + str(self[1]) + " ready with your question."
+            return str(self[0]) + ", ask your question now; " + str(self[1]) + ", ready with your question."
 
         elif len(self) > 0:
-            return str(self[0]) + " ask your question."
+            return str(self[0]) + ", ask your question."
         else:
             return "No one is in queue."
