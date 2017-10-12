@@ -19,6 +19,7 @@ You can send the following commands to the bot in a PM:
 |`:add [nick]`|Add `nick` to masters list|PM/Channel|Admin|
 |`:remove [nick]`|Remove `nick` from masters list|PM/Channel|Admin|
 |`:tweet`|Show the recent tweet in the twitter handle|Channel|Any user|
+|`:wiki [keyword]`|Show keyword information from Wikipedia|Channel|Any user|
 
 ### Commands for pikachu:
 

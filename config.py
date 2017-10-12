@@ -7,6 +7,7 @@ from weather import weather
 from bs4 import BeautifulSoup
 from joke import joke
 from google import get_urls
+import wiki
 
 user_queue = Queue()
 '''
@@ -129,9 +130,13 @@ def main():
 
             # Command for google
             # Syntax: ":google"
-            
+
             if ircmsg.split(" ")[-2] == "::google ":
                 sendmsg(channel, get_urls(ircmsg.split(" ")[-1]))
+
+            if ircmsg.split(" ")[-2] == "::wiki":
+                sendmsg(channel, wiki.summary(ircmsg.split(" ")[-1]))
+
 
         except Exception as e:
             tb = traceback.format_exc()
