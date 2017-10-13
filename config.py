@@ -39,7 +39,7 @@ def main():
     botnick = "pikachu_"
     bufsize = 2048
     admin = ["rahuldecoded"]
-    channel = "#dgplug"
+    channel = "#uit-foss"
     port = 6667
     server = "irc.freenode.net"
     master = "rahuldecoded"
